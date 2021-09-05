@@ -143,7 +143,7 @@
     Hi there :)
     ```
 
--   함수 eval()
+-   함수 `eval()`
 
     실행 가능한 연산식 문자열인 expression을 실행한 결과를 반환한다.
 
@@ -158,6 +158,115 @@
     'python python python'
     >>> eval("'python ' * 3")
     'python python python '
+    ```
+
+---
+
+## 변수와 키워드, 대입 연산자
+
+-   자료형과 `type()` 함수
+
+    정수는 `int`, 실수는 `float`, 문자열은 `str` 로 사용한다.
+
+    ```python
+    >>> type(3)
+    <class 'int'>
+    >>> pi = 3.14
+    >>> type(pi)
+    <class 'float'>
+    >>> type('python')
+    <class 'str'>
+    >>> type(3 + 4j) # 복소수
+    <class 'complex'>
+    ```
+
+-   변수와 대입연산자
+
+    -   변수(variable)
+
+        변하는 자료를 저장하는 메모리 공간이다.
+
+        변수 이름은 저장 값에 의미 있는 이름을 붙일 것!
+
+        대소문자의 영문자와 숫자 그리고 \_로 구성되며, 대소문자는 구별된다.
+
+        숫자는 맨 앞에 올 수 없고, 키워드는 사용할 수 없다.
+
+    변수를 저장하기 위해서 대입연산자 `=` 을 사용한다.
+
+    ```python
+    >>> number = 4 # 오른쪽 값을 왼쪽 변수에 저장
+    >>> 4 = number # 왼쪽에는 반드시 저장 공간인 변수가 와야 함
+    SyntaxError: cannot assign to literal
+    ```
+
+    -   대입 연산자
+
+        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/adfffcc1-2c98-4c50-8b84-84fbe2c97116/Untitled.png)
+
+    변수는 마지막에 저장된 하나의 값만 기억한다.
+
+    ```python
+    >>> a = b = c = 10
+    >>> print(a)
+    10
+    >>> print(b)
+    10
+    >>> print(c)
+    10
+    >>> b = 100
+    >>> print(b)
+    100
+    ```
+
+    -   키워드
+
+        이미 예약된 단어(reserved words)
+
+        ```python
+        >>> import keyword
+        >>> print(keyword.kwlist)
+        ['False', 'None', 'True', '__peg_parser__', 'and', 'as', 'assert', 'async', 'await', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield']
+        ```
+
+-   한 번에 여러 자료 대입
+
+    콤마로 구분된 여러 변수에 순서대로 값을 대입할 수 있다.
+
+    ```python
+    # 두 변수에 저장된 값을 교환(swap)하는 코드
+    >>> a, b = 5, 9
+    >>> b, a = a, b
+    >>> print(a, b)
+    9 5
+    ```
+
+    다른 언어보다 좀 더 직관적으로 사용할 수 있다.
+
+    ```python
+    # 일반적인 예시
+    >>> a, b = 5, 9
+    >>> temp = a
+    >>> a = b
+    >>> b = temp
+    >>> print(a, b)
+    9 5
+    ```
+
+-   함수 `divmod()`
+
+    함수 `divmod()`는 나누기 몫 연산 `//`와 나머지 연산 `%`를 함께 수행해 2개의 결과를 반환한다.
+
+    ```python
+    >>> 28 // 3, 28 % 3 # 연산식도 대입 연산자와 같이 콤마(,)로 구분해 여러 개 사용 가능
+    (9, 1)
+    >>> divmod(28, 3)
+    (9, 1)
+    >>>
+    >>> a, b = 17, 5
+    >>> d, m = divmod(a, b)
+    >>> print(d, m)
+    3 2
     ```
 
 ---
