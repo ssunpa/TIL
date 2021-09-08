@@ -429,5 +429,3 @@
         -   문자열 유형
 
             ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fbabead5-6b48-4af5-8fc9-c986de0b43a7/Untitled.png)
-
----
