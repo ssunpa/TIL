@@ -202,7 +202,7 @@
 
     -   대입 연산자
 
-        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/adfffcc1-2c98-4c50-8b84-84fbe2c97116/Untitled.png)
+        ![Untitled](./img/basic_01.png)
 
     변수는 마지막에 저장된 하나의 값만 기억한다.
 

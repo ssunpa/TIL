@@ -138,7 +138,7 @@
 
         하나의 문자를 역슬래시(`\`)로 시작하는 조합으로 표현하는 문자를 이스케이프 시퀀스 문자(escape sequence characters)라고 한다.
 
-        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b82048e7-d17f-4191-bbee-db041510c599/Untitled.png)
+        ![Untitled](./img/string_01.png)
 
 -   문자열의 최대와 최소
 
@@ -428,4 +428,4 @@
 
         -   문자열 유형
 
-            ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fbabead5-6b48-4af5-8fc9-c986de0b43a7/Untitled.png)
+            ![Untitled](./img/string_02.png)

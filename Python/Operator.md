@@ -127,7 +127,7 @@
 
     문자열의 비교는 문자열을 구성하는 하나하나의 문자와 문자를 왼쪽부터 순서대로 유니코드 값을 비교한다.
 
-    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4d047557-1c0a-4a0c-b38d-75d99d7b5328/Untitled.png)
+    ![Untitled](./img/operator_01.png)
 
 -   논리 값 `True`와 `False`의 산술 연산
 
@@ -186,7 +186,7 @@
 
     -   비트 논리곱, 논리합, 배타적 논리합 연산
 
-        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6fe7a373-923c-4ec4-b2b6-4b2ea3790278/Untitled.png)
+        ![Untitled](./img/operator_02.png)
 
 -   비트 논리곱 `&`로 특정 비트의 값 알아 내기
 
@@ -254,4 +254,4 @@
 
     -   연산자 우선순위
 
-        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/cec9d31a-0a04-4722-97de-6d18893df746/Untitled.png)
+        ![Untitled](./img/operator_03.png)
