@@ -405,3 +405,158 @@
         ```
 
         `리스트 = [항목연산식 for 항목 in 시퀀스 if 조건식]` 꼴
+
+-   리스트 대입과 복사
+
+    리스트의 대입 연산자 `=`은 얕은 복사(shallow copy)라고 해서 대입되는 변수가 동일한 시퀀스를 가리키게 된다.
+
+    ```python
+    >>> first = ['햄버거','피자','떡볶이','곱창','치킨']
+    >>> second = first
+    >>> second.pop()
+    '치킨'
+    >>> print(first)
+    ['햄버거', '피자', '떡볶이', '곱창']
+    >>> print(second)
+    ['햄버거', '피자', '떡볶이', '곱창']
+    ```
+
+    위와 같이 변수 `first`와 `second`는 동일한 메모리 공간을 사용하는 리스트를 공유하게 된다.
+
+    완전히 새로운 리스트를 만들어 복사하기 위해서 슬라이스 `[:]`나 `copy()` 또는 `list()` 함수를 이용한다. 이러한 복사를 깊은 복사(deep copy)라고 한다.
+
+    ```python
+    >>> first = ['햄버거','피자','떡볶이','곱창','치킨']
+    >>> second = first[:] # 슬라이스 [:] 이용 방법
+    >>> second.pop()
+    '치킨'
+
+    >>> third = first.copy() # copy() 함수 이용 방법
+    >>> third.pop()
+    '치킨'
+
+    >>> fourth = list(first) # list() 함수 이용 방법
+    >>> fourth.pop()
+    '치킨'
+
+    >>> print(first)
+    ['햄버거', '피자', '떡볶이', '곱창', '치킨']
+    >>> print(second)
+    ['햄버거', '피자', '떡볶이', '곱창']
+    >>> print(third)
+    ['햄버거', '피자', '떡볶이', '곱창']
+    >>> print(fourth)
+    ['햄버거', '피자', '떡볶이', '곱창']
+    ```
+
+    -   변수의 동일 객체 여부 검사
+
+        문장 `is`를 사용하여 피연산자인 변수 2개가 동일한 메모리를 공유하는지 검사할 수 있다. 공유한다면 `True`, 아니라면 `False`를 반환한다.
+
+        ```python
+        >>> first = ['엽기','신전','응급실','신참','옆집']
+        >>> second = first # 대입 연산자 이용
+        >>> third = first[:] # 슬라이스 이용
+        >>> fourth = first.copy() # copy함수 이용
+        >>> fifth = list(first) # list함수 이용
+        >>> print(first is second)
+        True
+        >>> print(first is third)
+        False
+        >>> print(first is fourth)
+        False
+        >>> print(first is fifth)
+        False
+        ```
+
+---
+
+## 튜플
+
+-   튜플 정의
+
+    튜플은 문자열, 리스트와 같은 항목의 나열인 시퀀스이지만 항목의 순서나 내용의 수정이 불가능하다.
+
+    ```python
+    >>> favorite1 = ('떡볶이', '곱창', '육회', '초밥') # 괄호 사이에 항목을 기술한다.
+    >>> favorite2 = (['엽기','신전'],['연어초밥', '새우초밥'])
+    >>> favorite3 = '그래도', '떡볶이', '최고' # 괄호는 생략할 수 있다.
+    ```
+
+빈 튜플을 만드는 방법
+
+```python
+>>> empty1 = () # ()를 사용
+>>> type(empty1)
+<class 'tuple'>
+>>> print(empty1)
+()
+>>> empty2 = tuple() # 함수 tuple() 사용
+>>> print(empty2)
+()
+```
+
+`int` 변수와 `tuple` 변수의 구분
+
+```python
+>>> inta = 1 # int형 1이 저장된 변수 inta
+>>> tupa = 1, # 콤마(,)를 붙이면 변수 tupa는 튜플이 된다.
+>>> print(inta, tupa)
+1 (1,)
+>>> type(inta)
+<class 'int'>
+>>> type(tupa)
+<class 'tuple'>
+```
+
+튜플도 리스트와 같이 첨자 참조 `tuple[index]`와 `tuple[start:stop:step]` 슬라이스가 가능하다.
+
+```python
+>>> nation = 'Korea','Canada', 'Japan', 'China'
+>>> city = ('Seoul', 'Incheon', 'Busan')
+>>> nation[1]
+'Canada'
+>>> city[1:3]
+('Incheon', 'Busan')
+```
+
+-   튜플 연결과 반복, 정렬과 삭제
+
+    연결 `+` 연산자와 반복 `*` 연산자
+
+    ```python
+    >>> week = 'mon','tue','wed','thu','fri'
+    >>> weekend = 'sat', 'sun'
+    >>> print(week + weekend)
+    ('mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun')
+    >>> days = 'good', 'perfect', 'bad'
+    >>> print(days *3)
+    ('good', 'perfect', 'bad', 'good', 'perfect', 'bad', 'good', 'perfect', 'bad')
+    ```
+
+    튜플 항목의 순서를 정렬한 리스트를 반환하는 내장 함수 `sorted()`
+
+    ```python
+    >>> myDay = 1, 9, 9, 8, 1, 1, 3, 0
+    >>> tup = sorted(myDay)
+    >>> print(tup)
+    [0, 1, 1, 1, 3, 8, 9, 9] # 오름차순으로 정렬된 리스트
+    >>> type(tup)
+    <class 'list'>
+    >>> print(sorted(myDay, reverse=True))
+    [9, 9, 8, 3, 1, 1, 1, 0] # 내림차순으로 정렬된 리스트
+    ```
+
+    `sorted(tuple)`을 사용한다면 오름차순으로 정렬한, `sorted(tuple, reverse=True)`를 사용한다면 역순인 내림차순으로 정렬된 새로운 리스트를 반환한다.
+
+    문장 `del`로 튜플 제거
+
+    ```python
+    >>> myFavorite = ('떡볶이', '곱창', '마라탕')
+    >>> del myFavorite # 변수 자체를 메모리에서 제거
+    >>> print(myFavorite)
+    Traceback (most recent call last):
+      File "<pyshell#87>", line 1, in <module>
+        print(myFavorite)
+    NameError: name 'myFavorite' is not defined
+    ```
