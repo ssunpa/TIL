@@ -284,3 +284,265 @@
     >>> cp
     {'한국': '서울', '중국': '북경', '독일': '베를린', '미국': '워싱턴'}
     ```
+
+---
+
+## 집합
+
+-   집합을 처리하는 자료형
+
+    1. 원소는 불변 값으로 중복될 수 없으며 서로 다른 값이어야 한다.
+    2. 원소는 중복을 허용하지 않으며 원소의 순서는 의미가 없다.
+
+    ```python
+    >>> set1 = {1, 2, 3, 4, 5}
+    >>> set2 = {'py', 'c', 'js'}
+    >>> set3 = {(1, 1), (2, 4), (3, 9)}
+    ```
+
+-   내장 함수 `set()`을 이용한 집합 생성
+
+    내장 함수 `set()`은 집합을 만드며, 인자가 없으면 빈 집합인 공집합이 생성된다.
+
+    ```python
+    >>> s = set()
+    >>> type(s)
+    <class 'set'>
+    >>> s # 공집합을 출력
+    set()
+    >>> d = {} # 빈 딕셔너리를 만드는 방법
+    >>> type(d)
+    <class 'dict'>
+    ```
+
+    리스트나 튜플을 인자로 사용하는 `set()` 함수
+
+    ```python
+    >>> set([1, 2, 3]) # 인자인 리스트의 항목으로 구성되는 집합을 생성
+    {1, 2, 3}
+    >>> set((1, 2, 2,)) # 인자인 튜플의 항목으로 구성되는 집합을 생성
+    {1, 2} # 중복을 제거하고 생성
+    >>> set(['a', 'b'])
+    {'a', 'b'}
+    ```
+
+    문자열을 인자로 사용하는 `set()` 함수
+
+    ```python
+    >>> set('abc') # 각각의 문자가 원소인 집합이 생성
+    {'c', 'a', 'b'} # 집합의 순서는 의미가 없다.
+    ```
+
+    수정 가능한 리스트와 딕셔너리는 집합의 원소로 사용할 수 없다.
+
+    ```python
+    >>> set([1, [2, 3]]) # 오류 발생
+    Traceback (most recent call last):
+      File "<pyshell#23>", line 1, in <module>
+        set([1, [2, 3]])
+    TypeError: unhashable type: 'list'
+    ```
+
+-   중괄호 `{}`를 이용한 집합 생성
+
+    숫자, 문자열, 문자, 튜플 등과 같이 변할 수 없는 것이 원소로 가능하다.
+
+    ```python
+    >>> {1, 'sp', 'a', (1.2, 3.4)}
+    {1, 'a', 'sp', (1.2, 3.4)}
+    ```
+
+    리스트나 딕셔너리는 원소로 사용불가
+
+    ```python
+    >>> {[1, 2, 3]} # 오류
+    Traceback (most recent call last):
+      File "<pyshell#25>", line 1, in <module>
+        {[1, 2, 3]}
+    TypeError: unhashable type: 'list'
+    >>> {{1:'a', 2:'b'}} # 오류
+    Traceback (most recent call last):
+      File "<pyshell#26>", line 1, in <module>
+        {{1:'a', 2:'b'}}
+    TypeError: unhashable type: 'dict'
+    ```
+
+-   집합의 원소 추가와 삭제
+
+    집합 메소드 `add(원소)`로 항목 추가
+
+    ```python
+    >>> odd = {1, 3, 5}
+    >>> odd.add(7)
+    >>> odd.add(9)
+    >>> print(odd)
+    {1, 3, 5, 7, 9}
+    ```
+
+    집합 메소드 `remove(원소)`으로 항목 삭제
+
+    ```python
+    >>> odd = {1, 3, 5}
+    >>> odd.remove(3)
+    >>> print(odd)
+    {1, 5}
+    >>> odd.remove(9) # 삭제하려는 원소가 없으면 오류가 발생한다.
+    Traceback (most recent call last):
+      File "<pyshell#38>", line 1, in <module>
+        odd.remove(9)
+    KeyError: 9
+    ```
+
+    집합 메소드 `discard(원소)`로 항목 삭제
+
+    ```python
+    >>> odd = {1, 3, 5}
+    >>> odd.discard(3)
+    >>> print(odd)
+    {1, 5}
+    >>> odd.discard(9) # 삭제하려는 원소가 없어도 오류가 발생하지 않는다.
+    ```
+
+    집합 메소드 `pop()`으로 임의의 항목 삭제
+
+    ```python
+    >>> odd = {1, 3, 5}
+    >>> print(odd.pop())
+    1
+    >>> print(odd)
+    {3, 5}
+    ```
+
+    집합 메소드 `clear()`로 집합의 모든 항목 삭제
+
+    ```python
+    >>> odd = {1, 3, 5}
+    >>> odd.clear()
+    >>> print(odd) # 빈 집합을 출력
+    set()
+    ```
+
+-   집합의 주요 연산
+
+    -   합집합
+
+        연산자 `|`와 메소든 `union()`, `update()`
+
+        ```python
+        >>> a = {4, 6, 8, 10, 12} # 4에서 12까지의 2의 배수
+        >>> b = {3, 6,9, 12} # 3에서 12까지의 3의 배수
+        >>> a | b
+        {3, 4, 6, 8, 9, 10, 12}
+        >>> a.union(b) # a에는 영향을 주지 않는다.
+        {3, 4, 6, 8, 9, 10, 12}
+        >>> a
+        {4, 6, 8, 10, 12}
+        >>> a.update(b) # a에 반영되어 수정된다.
+        >>> a
+        {3, 4, 6, 8, 9, 10, 12}
+        ```
+
+    -   교집합
+
+        연산자 `&`와 메소드 `intersection()`
+
+        ```python
+        >>> a = {4, 6, 8, 10 ,12}
+        >>> b = {3, 6, 9, 12}
+        >>> a & b
+        {12, 6}
+        >>> a.intersection(b) # a, b 모두에 영향을 미치지 않는다.
+        {12, 6}
+        >>> a
+        {4, 6, 8, 10, 12}
+        >>> a.intersection_update(b) # a를 수정
+        >>> a
+        {12, 6}
+        ```
+
+    -   차집합
+
+        연산자 `-`와 메소드 `difference()`
+
+        ```python
+        >>> a = {4, 6, 8, 10, 12}
+        >>> b = {3, 6, 9, 12}
+        >>> a - b
+        {8, 10, 4}
+        >>> a.difference(b)
+        {8, 10, 4}
+        >>> a # a에 영향을 주지 않는다
+        {4, 6, 8, 10, 12}
+        >>> b - a # 교환 법칙은 성립하지 않는다.
+        {9, 3}
+        >>> b.difference(a)
+        {9, 3}
+        >>> a.difference_update(b) # a를 수정
+        >>> a
+        {2, 4, 8, 10}
+        ```
+
+    -   여집합
+
+        연산자 `^`와 메소드 `symmetric_difference()`
+
+        ```python
+        >>> a = {4, 6, 8 ,10 ,12}
+        >>> b = {3, 6, 9, 12}
+        >>> a ^ b
+        {3, 4, 8, 9, 10}
+        >>> a.symmetric_difference(b)
+        {3, 4, 8, 9, 10}
+        >>> a # a에 영향을 주지 않는다
+        {4, 6, 8, 10, 12}
+        >>> a.symmetric_difference_update(b) # a를 수정
+        >>> a
+        {3, 4, 8, 9, 10}
+        ```
+
+    집합 연산 네 가지에도 축약 대입 연산자 `|=`, `&=`, `-=`, `^=`을 제공한다.
+
+    ```python
+    >>> A = set('abcd'); B = set('cde')
+    >>> A |= B # A = A | B, A.update(B) 와 같은 결과
+    >>> A
+    {'d', 'b', 'a', 'c', 'e'}
+
+    >>> A = set('abcd'); B = set('cde')
+    >>> A &= B # A = A & B, A.intersection_update(B) 와 같은 결과
+    >>> A
+    {'d', 'c'}
+
+    >>> A = set('abcd'); B = set('cde')
+    >>> A -= B # A = A - B, A.difference_update(B) 와 같은 결과
+    >>> A
+    {'b', 'a'}
+
+    >>> A = set('abcd'); B = set('cde')
+    >>> A ^= B # A = A ^ B, A.symmetric_difference_update(B) 와 같은 결과
+    >>> A
+    {'b', 'a', 'e'}
+    ```
+
+-   함수 `len()`
+
+    함수 `len()`으로 집합에 들어 있는 원소의 개수를 확인할 수 있다.
+
+    ```python
+    >>> good = {'weekend', 'chill', 'netfilx'}
+    >>> len(good) # 원소의 개수
+    3
+    ```
+
+-   소속 연산자 `in`
+
+    특정 원소가 집합에 있는지 확인하기 위해 사용한다.
+
+    ```python
+    >>> good = {'weekend', 'chill', 'netfilx'}
+    >>> bad = {'week', 'blue', 'exercise'}
+    >>> 'exercise' in good
+    False
+    >>> 'exercise' in bad
+    True
+    ```
