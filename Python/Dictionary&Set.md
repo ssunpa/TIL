@@ -546,3 +546,161 @@
     >>> 'exercise' in bad
     True
     ```
+
+---
+
+## 내장 함수 zip(), enumerate() 와 시퀀스 간의 변환
+
+-   내장 함수 `zip()`
+
+    내장 함수 `zip()`을 이용하면 몇 개의 리스트나 튜플의 항목으로 조합된 튜플을 만들 수 있다.
+
+    ```python
+    >>> a = ['FTP', 'telnet', 'SMTP', 'DNS']
+    >>> b = (20, 23, 25, 53)
+    >>> z = zip(a, b)
+    >>> type(z)
+    <class 'zip'>
+    ```
+
+    함수 `zip()`의 결과는 자료형`zip`이다. 자료형 `zip`은 간단히 리스트나 튜플로 변환할 수 있다.
+
+    ```python
+    >>> list(zip(a, b)) # 항목이 튜플인 리스트가 생성
+    [('FTP', 20), ('telnet', 23), ('SMTP', 25), ('DNS', 53)]
+    >>> tuple(zip(a, b)) # 항목이 튜플인 튜플이 생성
+    (('FTP', 20), ('telnet', 23), ('SMTP', 25), ('DNS', 53))
+    ```
+
+    `zip()`에서 인자의 수는 2개 이상 올 수 있다.
+
+    ```python
+    >>> list(zip('ABCD', a, b)) # 인자가 3개이므로 항목이 3개인 튜플이 생성
+    [('A', 'FTP', 20), ('B', 'telnet', 23), ('C', 'SMTP', 25), ('D', 'DNS', 53)]
+    ```
+
+    `zip()`의 인자들의 길이가 같지 않더라도 짧은 쪽의 인자에 맞춰 구성하고 긴 것은 무시한다.
+
+    ```python
+    >>> tuple(zip('ABCDEFG', a, b))
+    (('A', 'FTP', 20), ('B', 'telnet', 23), ('C', 'SMTP', 25), ('D', 'DNS', 53))
+    ```
+
+    기존 리스트나 튜플의 조합으로 딕셔너리를 만들 수 있다.
+
+    ```python
+    >>> a = ['FTP', 'telnet', 'SMTP', 'DNS']
+    >>> b = (20, 23, 25, 53)
+    >>> dict(zip(a, b)) # 첫 번째 인자는 키, 두 번째 인자는 값으로 구성되어 딕셔너리 생성
+    {'FTP': 20, 'telnet': 23, 'SMTP': 25, 'DNS': 53}
+    >>> dict(zip('ABCDEF', a)) # 길이가 같지 않더라도 짧은 쪽의 인자에 맞춰 생성
+    {'A': 'FTP', 'B': 'telnet', 'C': 'SMTP', 'D': 'DNS'}
+    ```
+
+    딕셔너리는 `key:value`의 항목이므로 인자가 2개여야 한다.
+
+    ```python
+    >>> dict(zip('ABCDEF', a, b)) # 오류 발생
+    Traceback (most recent call last):
+      File "<pyshell#26>", line 1, in <module>
+        dict(zip('ABCDEF', a, b))
+    ValueError: dictionary update sequence element #0 has length 3; 2 is required
+    ```
+
+-   내장 함수 `enumerate()`
+
+    내장 함수 `enumerate()`는 0부터 시작하는 첨자와 항목 값의 튜플 리스트를 생성한다.
+
+    ```python
+    >>> zero = [10, 20, 30]
+    >>> list(enumerate(zero))
+    [(0, 10), (1, 20), (2, 30)] # 0부터 시작하는 첨자가 자동으로 삽입되어 튜플 항목이 생성
+    >>> tuple(enumerate(zero))
+    ((0, 10), (1, 20), (2, 30))
+    >>> dict(enumerate(zero))
+    {0: 10, 1: 20, 2: 30}
+    ```
+
+    키워드 인자 `start`를 사용해 시작 첨자를 지정할 수 있다.
+
+    ```python
+    >>> list(enumerate(zero, start = 1))
+    [(1, 10), (2, 20), (3, 30)]
+    >>> list(enumerate(zero, start = 10))
+    [(10, 10), (11, 20), (12, 30)]
+    ```
+
+    문자열 리스트를 사용할 수도 있다.
+
+    ```python
+    >>> str = 'python'
+    >>> list(enumerate(str))
+    [(0, 'p'), (1, 'y'), (2, 't'), (3, 'h'), (4, 'o'), (5, 'n')]
+    ```
+
+    내장 함수 `enumerate()`는 `for` 반복의 시퀀스에 사용하는 것이 좋다.
+
+    ```python
+    >>> subj = ['korean', 'english', 'math']
+    >>> for tp in enumerate(subj):
+    	print('lst[{}]: {}'.format(tp[0], tp[1]))
+    	print('lst[{}]: {}'.format(*tp))
+
+    lst[0]: korean
+    lst[0]: korean
+    lst[1]: english
+    lst[1]: english
+    lst[2]: math
+    lst[2]: math
+
+    >>> for i, name in enumerate(subj): # i에는 첨자가 name에는 값이 저장된다.
+    	print('lst[{}]: {}'.format(i, name))
+
+    lst[0]: korean
+    lst[1]: english
+    lst[2]: math
+    ```
+
+-   시퀀스 간의 변환
+
+    -   튜플과 시퀀스 간의 변환
+
+        ```python
+        >>> space = '밤', '낮', '해', '달'
+        >>> type(space)
+        <class 'tuple'>
+        >>> type(list(space)) # list()이용
+        <class 'list'>
+        >>> type(set(space)) # set()이용
+        <class 'set'>
+        >>> type(dict(enumerate(space))) # 딕셔너리는 키와 값이 쌍을 이루어야한다!
+        <class 'dict'>
+
+        >>> space = ['밤', '낮', '해', '달']
+        >>> type(space)
+        <class 'list'>
+        >>> type(tuple(space)) # list를 내장 함수 tuple()을 사용해 tuple로 변환
+        <class 'tuple'>
+        ```
+
+    -   리스트와 집합 간의 변환
+
+        ```python
+        >>> space = ['밤', '낮', '해', '밤', '달', '달']
+        >>> space
+        ['밤', '낮', '해', '밤', '달', '달']
+        >>> set(space) # 집합으로 변환
+        {'밤', '달', '해', '낮'} # 중복 되는 원소는 하나만 남기고 순서도 무의미해진다.
+        ```
+
+    -   딕셔너리와 시퀀스 간의 변환
+
+        ```python
+        >>> birthstone = dict(일월='석류석', 이월='자수정', 삼월='남옥', 사월='금강석')
+        >>> list(birthstone) # 항목이 key로만 구성된 list 생성
+        ['일월', '이월', '삼월', '사월']
+        >>> tuple(birthstone) # 항목이 key로만 구성된 tuple 생성
+        ('일월', '이월', '삼월', '사월')
+        >>> set(birthstone) # 항목이 key로만 구성된 set 생성
+        {'삼월', '사월', '이월', '일월'}
+        ```
